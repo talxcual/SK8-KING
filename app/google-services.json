@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1039716438719",
+    "project_id": "pissdrunxking-adf13af3",
+    "storage_bucket": "pissdrunxking-adf13af3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1039716438719:android:3ad9cdbdc7a485de572c0a",
+        "android_client_info": {
+          "package_name": "com.Ktoledo.pissdrunxking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1039716438719-ql6ljn5vb8uechs701vi5tlgo2l33geu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.Ktoledo.pissdrunxking",
+            "certificate_hash": "bd3138ee3b2a328552862831b031298ee7f2fd07"
+          }
+        },
+        {
+          "client_id": "1039716438719-7g9hjsmka0l669ed9r5jopnevj5udcln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaTejiwh_zS-8Ka9hoHd8pApkXDuAx00o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1039716438719-7g9hjsmka0l669ed9r5jopnevj5udcln.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

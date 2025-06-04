@@ -1,0 +1,96 @@
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/imgMission"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/placeholder_image" /> <TextView
+        android:id="@+id/tvMissionName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nombre de la Misión"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tvLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ubicación: "
+            android:textSize="16sp"
+            android:layout_marginBottom="2dp" />
+
+        <TextView
+            android:id="@+id/tvTrick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Truco: "
+            android:textSize="16sp"
+            android:layout_marginBottom="2dp" />
+
+        <TextView
+            android:id="@+id/tvDifficulty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dificultad: "
+            android:textSize="16sp"
+            android:layout_marginBottom="2dp" />
+
+        <TextView
+            android:id="@+id/tvReward"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Recompensa: "
+            android:textSize="16sp"
+            android:layout_marginBottom="2dp" />
+
+        <TextView
+            android:id="@+id/tvGlobalAcceptances"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aceptaciones globales: 0/15"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:layout_marginBottom="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"> <Button
+            android:id="@+id/btnAcceptMission"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aceptar Misión"
+            android:layout_marginEnd="8dp"
+            android:visibility="gone" /> <Button
+            android:id="@+id/btnCancelMission"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancelar Misión"
+            android:layout_marginEnd="8dp"
+            android:visibility="gone" /> <Button
+            android:id="@+id/btnSubmitEvidence"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enviar Evidencia"
+            android:visibility="gone" /> </LinearLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
