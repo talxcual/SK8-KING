@@ -3,11 +3,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    // Se elimina: alias(libs.plugins.kotlin.compose) - Ya no es necesario si no usas Compose UI
+    // Se elimina: alias(libs.plugins.kotlin.compose) - no es necesario si no se usa Compose UI
     id("com.google.gms.google-services")
-    // Si estás usando KSP (Kotlin Symbol Processing) para procesadores de anotaciones como los de Glide,
-    // asegúrate de que el plugin esté aquí. Por ahora, asumiremos 'annotationProcessor' es suficiente.
-    // id("com.google.devtools.ksp") version "1.9.23-1.0.20" // Descomenta y ajusta si usas KSP
 }
 
 android {
@@ -75,20 +72,19 @@ dependencies {
     // implementation("com.google.firebase:firebase-storage-ktx")
 
 
-    // ¡¡¡AÑADE ESTA LÍNEA PARA GSON!!!
+    // ¡¡¡GSON!!!
     implementation(libs.gson)
 
     implementation(libs.androidx.recyclerview) // Para RecyclerView
     implementation(libs.androidx.cardview) // Para CardView
     implementation(libs.firebase.auth.ktx) // Para autenticación de Firebase
 
-    // AÑADIDO: Dependencia para Google Sign-In
+    // Dependencia para Google Sign-In
     implementation("com.google.android.gms:play-services-auth:21.2.0") // O la última versión estable
 
-    // GLIDE - AÑADIDO PARA LA CARGA DE IMÁGENES
+    // GLIDE PARA LA CARGA DE IMÁGENES
     implementation ("com.github.bumptech.glide:glide:4.16.0") // Última versión estable
-    // Para procesador de anotaciones, si no usas KSP, asegúrate de que KAPT esté configurado si es necesario.
-    // Si estás usando KSP, reemplazarías 'annotationProcessor' con 'ksp'
+    
     annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
     // Si usas KSP, descomenta esta línea y comenta la de arriba:
     // ksp ("com.github.bumptech.glide:compiler:4.16.0")
