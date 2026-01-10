@@ -1,478 +1,130 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PissDrunxKing - La App Definitiva de Skate</title>
-    <meta name="description" content="Gestiona tus misiones de skate, sube tus trucos y compite con la comunidad en PissDrunxKing.">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --primary-color: #ffcc00; /* Amarillo Skate */
-            --secondary-color: #1a1a1a; /* Negro Asfalto */
-            --accent-color: #e63946; /* Rojo Acción */
-            --text-light: #f1f1f1;
-            --text-dark: #333;
-        }
+🛹 PissDrunxKing - App de Gestión de Misiones de Skate
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+📄 Descripción del Proyecto
 
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--secondary-color);
-            color: var(--text-light);
-            overflow-x: hidden;
-        }
+PissDrunxKing es una aplicación móvil nativa para Android diseñada para la comunidad skater. Su objetivo principal es gamificar la experiencia del skate mediante un sistema de misiones y desafíos. Los usuarios pueden explorar una lista de misiones (trucos específicos en lugares emblemáticos), aceptarlas, y enviar evidencia en video para completarlas.
 
-        /* Tipografía */
-        h1, h2, h3 {
-            font-family: 'Anton', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+La aplicación implementa un flujo completo de autenticación, gestión de estado de misiones en tiempo real y persistencia de datos en la nube, ofreciendo una experiencia robusta y escalable.
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+🚀 Funcionalidades Principales
 
-        /* Header */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            background-color: rgba(26, 26, 26, 0.95);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 2px solid var(--primary-color);
-        }
+1. Gestión de Usuarios (Autenticación)
 
-        .logo {
-            font-size: 1.8rem;
-            color: var(--primary-color);
-        }
+Registro e Inicio de Sesión: Implementado con Firebase Authentication.
 
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
+Soporte Multi-método: Permite el acceso mediante correo electrónico/contraseña y Google Sign-In.
 
-        nav ul li {
-            margin-left: 30px;
-        }
+Gestión de Sesiones: Mantiene la sesión del usuario activa y permite cerrar sesión de forma segura.
 
-        nav ul li a {
-            font-weight: 700;
-            transition: color 0.3s;
-        }
+Perfiles de Usuario: Almacenamiento automático de la información básica del usuario (UID, email) en Cloud Firestore al registrarse.
 
-        nav ul li a:hover {
-            color: var(--primary-color);
-        }
+2. Sistema de Misiones
 
-        .btn-download-nav {
-            background-color: var(--primary-color);
-            color: var(--secondary-color);
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: transform 0.2s;
-        }
+Listado Dinámico: Visualización de misiones mediante RecyclerView con un diseño de tarjetas (MaterialCardView) atractivo.
 
-        .btn-download-nav:hover {
-            transform: scale(1.05);
-            background-color: #e6b800;
-        }
+Filtrado por Estado: Uso de TabLayout para organizar las misiones en tres categorías:
 
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1520045864981-8d49230f7978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
-            background-size: cover;
-            background-position: center;
-            text-align: center;
-            padding-top: 80px;
-        }
+Disponibles: Misiones que el usuario aún no ha aceptado.
 
-        .hero-content {
-            max-width: 800px;
-            padding: 20px;
-        }
+Aceptadas: Misiones en curso que el usuario ha aceptado.
 
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-        }
+Completadas: Misiones finalizadas con éxito.
 
-        .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 40px;
-            font-weight: 300;
-        }
+Detalle de Misión: Pantalla de detalle (MissionDetailActivity) que muestra información completa (ubicación, truco, dificultad, premio) e imagen del spot.
 
-        .hero-btn {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: white;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            text-transform: uppercase;
-            font-weight: bold;
-            transition: background-color 0.3s;
-            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
-        }
+3. Flujo de Progreso y Evidencia
 
-        .hero-btn:hover {
-            background-color: #d62828;
-        }
+Aceptar Misión: Los usuarios pueden aceptar misiones disponibles, lo que actualiza su estado en tiempo real.
 
-        /* Features Section */
-        .features {
-            padding: 80px 5%;
-            background-color: #222;
-        }
+Contador Global de Aceptaciones: Sistema de cupos limitados (ej. 15 vacantes) por misión, gestionado globalmente para todos los usuarios.
 
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 60px;
-            color: var(--primary-color);
-        }
+Cancelar Misión: Posibilidad de abandonar una misión aceptada, liberando el cupo.
 
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
+Enviar Evidencia: Funcionalidad para que los usuarios envíen un enlace de video (YouTube, Drive, etc.) como prueba.
 
-        .feature-card {
-            background-color: #333;
-            padding: 40px 20px;
-            border-radius: 10px;
-            text-align: center;
-            transition: transform 0.3s;
-        }
+Abre un diálogo para ingresar el enlace.
 
-        .feature-card:hover {
-            transform: translateY(-10px);
-            background-color: #3a3a3a;
-        }
+Genera un correo electrónico pre-llenado con los detalles para el administrador.
 
-        .feature-icon {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
+Marca automáticamente la misión como Completada en el perfil del usuario.
 
-        .feature-card h3 {
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
+🛠️ Tecnologías Utilizadas
 
-        /* App Preview Section */
-        .preview {
-            padding: 80px 5%;
-            text-align: center;
-            background-color: var(--secondary-color);
-        }
+Lenguajes:
 
-        .phone-mockup {
-            width: 300px;
-            border: 10px solid #111;
-            border-radius: 30px;
-            overflow: hidden;
-            margin: 0 auto;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            position: relative;
-        }
-        
-        /* Simulación de pantalla de app */
-        .app-screen {
-            background-color: #fff;
-            height: 550px;
-            display: flex;
-            flex-direction: column;
-            color: #333;
-        }
-        
-        .app-header {
-            background-color: var(--primary-color);
-            padding: 15px;
-            font-family: 'Anton', sans-serif;
-            font-size: 1.2rem;
-            color: var(--secondary-color);
-        }
+Kotlin: Lenguaje principal para la lógica de la aplicación y actividades.
 
-        .mission-item {
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-            text-align: left;
-        }
+Java: Utilizado para la clase core PDKMisionManager y modelos de datos, demostrando interoperabilidad.
 
-        .mission-title {
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
+Arquitectura & Patrones:
 
-        .mission-loc {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 5px;
-        }
+Singleton: Implementado en PDKMisionManager para centralizar el estado y la lógica de negocio.
 
-        .btn-accept {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            border: none;
-            padding: 5px 15px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            font-weight: bold;
-        }
+Adaptadores: RecyclerView.Adapter personalizado para el manejo eficiente de listas.
 
-        /* Download Section */
-        .download {
-            padding: 100px 5%;
-            background: linear-gradient(45deg, #111, #222);
-            text-align: center;
-        }
+Backend & Nube (Firebase):
 
-        .download-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 40px;
-            flex-wrap: wrap;
-        }
+Firebase Authentication: Gestión segura de identidades.
 
-        .store-btn {
-            background-color: white;
-            color: black;
-            padding: 15px 30px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: opacity 0.3s;
-        }
+Cloud Firestore: Base de datos NoSQL para persistir:
 
-        .store-btn:hover {
-            opacity: 0.8;
-        }
+Perfiles de usuarios.
 
-        .store-btn i {
-            font-size: 2rem;
-        }
+Estado global de las misiones (contadores).
 
-        .store-text {
-            text-align: left;
-        }
+Progreso individual de cada usuario (misiones aceptadas/completadas).
 
-        .store-text small {
-            display: block;
-            font-size: 0.8rem;
-        }
+Interfaz de Usuario (UI):
 
-        .store-text strong {
-            font-size: 1.2rem;
-            font-family: 'Anton', sans-serif;
-        }
+XML Layouts: Diseño de interfaces nativas.
 
-        /* Footer */
-        footer {
-            background-color: #111;
-            padding: 40px 5%;
-            text-align: center;
-            border-top: 1px solid #333;
-        }
+Material Design: Componentes como TabLayout, MaterialCardView, Toolbar.
 
-        .social-links {
-            margin-bottom: 20px;
-        }
+Glide: Librería para la carga y caché eficiente de imágenes (preparado para URLs, actualmente usando recursos locales).
 
-        .social-links a {
-            color: var(--text-light);
-            font-size: 1.5rem;
-            margin: 0 15px;
-            transition: color 0.3s;
-        }
+📋 Modelo de Datos (Firestore)
 
-        .social-links a:hover {
-            color: var(--primary-color);
-        }
+El sistema utiliza una estructura NoSQL en Firestore:
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            header {
-                padding: 15px 5%;
-            }
-            
-            nav ul {
-                display: none; /* Ocultar menú en móvil para simplificar */
-            }
+Colección globalMissions: Almacena la información estática de cada misión y sus contadores globales.
 
-            .hero h1 {
-                font-size: 2.5rem;
-            }
+Colección users:
 
-            .hero p {
-                font-size: 1.1rem;
-            }
-        }
-    </style>
-</head>
-<body>
+Documento por uid.
 
-    <!-- Header -->
-    <header>
-        <div class="logo">PISS DRUNX KING</div>
-        <nav>
-            <ul>
-                <li><a href="#features">Características</a></li>
-                <li><a href="#preview">Preview</a></li>
-                <li><a href="#download" class="btn-download-nav">Descargar</a></li>
-            </ul>
-        </nav>
-    </header>
+Subcolección userMissions: Almacena el estado específico (ACCEPTED, COMPLETED) de cada misión para ese usuario.
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Domina las Calles</h1>
-            <p>La app definitiva para skaters. Encuentra misiones, graba tus trucos y demuestra quién es el rey del spot.</p>
-            <a href="#download" class="hero-btn">Empieza a Patinar</a>
-        </div>
-    </section>
+🔧 Instalación y Configuración
 
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <h2 class="section-title">¿Qué puedes hacer?</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <i class="fa-solid fa-map-location-dot feature-icon"></i>
-                <h3>Misiones Reales</h3>
-                <p>Encuentra spots legendarios como Plaza de Armas o Parque Los Reyes y completa los trucos sugeridos.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fa-solid fa-video feature-icon"></i>
-                <h3>Sube Evidencia</h3>
-                <p>Graba tu truco, sube el video directamente desde la app y valida tu misión completada.</p>
-            </div>
-            <div class="feature-card">
-                <i class="fa-solid fa-trophy feature-icon"></i>
-                <h3>Gana Recompensas</h3>
-                <p>Completa desafíos difíciles y gana premios exclusivos como gorras, tablas y descuentos.</p>
-            </div>
-        </div>
-    </section>
+Clonar el repositorio:
 
-    <!-- App Preview Section (Simulado) -->
-    <section id="preview" class="preview">
-        <h2 class="section-title">Dentro de la App</h2>
-        <div class="phone-mockup">
-            <div class="app-screen">
-                <div class="app-header">PDK Misiones</div>
-                
-                <!-- Mision 1 -->
-                <div class="mission-item">
-                    <div style="width: 100%; height: 120px; background: url('https://images.unsplash.com/photo-1564245645607-4e6988894178?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60') center/cover; margin-bottom: 10px; border-radius: 8px;"></div>
-                    <div class="mission-title">Flip 360 en 3 escalones</div>
-                    <div class="mission-loc"><i class="fas fa-map-marker-alt"></i> Plaza de Armas, Pudahuel</div>
-                    <button class="btn-accept">ACEPTAR MISIÓN</button>
-                </div>
+git clone [https://github.com/tu-usuario/PissDrunxKing.git](https://github.com/tu-usuario/PissDrunxKing.git)
 
-                 <!-- Mision 2 -->
-                 <div class="mission-item">
-                    <div class="mission-title">Boardslide en baranda</div>
-                    <div class="mission-loc"><i class="fas fa-map-marker-alt"></i> Parque Los Reyes</div>
-                    <div style="font-size: 0.8rem; color: #e63946; font-weight: bold; margin-top: 5px;">Dificultad: Alta</div>
-                </div>
 
-            </div>
-        </div>
-    </section>
+Configurar Firebase:
 
-    <!-- Download Section -->
-    <section id="download" class="download">
-        <h2 class="section-title">Descarga PissDrunxKing Hoy</h2>
-        <p>Únete a la comunidad y empieza a tachar trucos de tu lista.</p>
-        
-        <div class="download-buttons">
-            <a href="#" class="store-btn">
-                <i class="fa-brands fa-google-play"></i>
-                <div class="store-text">
-                    <small>Disponible en</small>
-                    <strong>Google Play</strong>
-                </div>
-            </a>
-            <!-- Opción para descarga directa de APK -->
-            <a href="#" class="store-btn" style="background-color: var(--primary-color); color: var(--secondary-color);">
-                <i class="fa-solid fa-download"></i>
-                <div class="store-text">
-                    <small>Descarga Directa</small>
-                    <strong>APK (v1.0)</strong>
-                </div>
-            </a>
-        </div>
-    </section>
+Crea un proyecto en Firebase Console.
 
-    <!-- Footer -->
-    <footer>
-        <div class="social-links">
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-            <a href="#"><i class="fa-brands fa-youtube"></i></a>
-        </div>
-        <p>&copy; 2025 PissDrunxKing. Todos los derechos reservados.</p>
-        <p style="font-size: 0.8rem; margin-top: 10px; color: #666;">Desarrollado por Kleber Toledo A.</p>
-    </footer>
+Registra la app con el paquete com.Ktoledo.pissdrunxking.
 
-    <script>
-        // Smooth scrolling para los enlaces de navegación
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+Habilita Authentication (Email/Password y Google).
 
-        // Simple animación al hacer scroll para las tarjetas
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        });
+Habilita Firestore Database.
 
-        document.querySelectorAll('.feature-card').forEach((el) => {
-            el.style.opacity = 0;
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-            observer.observe(el);
-        });
-    </script>
-</body>
-</html>
+Descarga el archivo google-services.json y colócalo en la carpeta app/ del proyecto.
+
+Compilar y Ejecutar:
+
+Abre el proyecto en Android Studio.
+
+Sincroniza los archivos Gradle.
+
+Ejecuta la aplicación en un emulador o dispositivo físico.
+
+👤 Autor
+
+Kleber Toledo A.
+
+LinkedIn
+
+Estudiante de Ingeniería de Ejecución en Informática
