@@ -1,130 +1,79 @@
-🛹 PissDrunxKing - App de Gestión de Misiones de Skate
+# 🛹 PissDrunxKing - App de Gestión de Misiones de Skate
 
-📄 Descripción del Proyecto
+![Android](https://img.shields.io/badge/Android-Native-3DDC84?style=flat&logo=android)
+![Kotlin](https://img.shields.io/badge/Language-Kotlin-7F52FF?style=flat&logo=kotlin)
+![Java](https://img.shields.io/badge/Language-Java-ED8B00?style=flat&logo=java)
+![Firebase](https://img.shields.io/badge/Backend-Firebase-FFCA28?style=flat&logo=firebase)
 
-PissDrunxKing es una aplicación móvil nativa para Android diseñada para la comunidad skater. Su objetivo principal es gamificar la experiencia del skate mediante un sistema de misiones y desafíos. Los usuarios pueden explorar una lista de misiones (trucos específicos en lugares emblemáticos), aceptarlas, y enviar evidencia en video para completarlas.
+## 📄 Descripción del Proyecto
 
-La aplicación implementa un flujo completo de autenticación, gestión de estado de misiones en tiempo real y persistencia de datos en la nube, ofreciendo una experiencia robusta y escalable.
+**PissDrunxKing** es una aplicación móvil nativa diseñada para la comunidad skater, cuyo objetivo es **gamificar la experiencia del skate** mediante un sistema de misiones y desafíos reales.
 
-🚀 Funcionalidades Principales
+El proyecto destaca por su arquitectura híbrida (**Kotlin + Java**) y una gestión robusta de datos en la nube. Los usuarios exploran spots, aceptan misiones con cupos limitados y validan sus trucos mediante evidencia en video, todo sincronizado en tiempo real.
 
-1. Gestión de Usuarios (Autenticación)
+## 🚀 Funcionalidades Principales
 
-Registro e Inicio de Sesión: Implementado con Firebase Authentication.
+### 1. Gestión de Usuarios (Auth)
+* **Acceso Multi-plataforma:** Autenticación robusta vía **Correo/Contraseña** y **Google Sign-In**.
+* **Persistencia de Sesión:** Mantiene al usuario conectado y gestiona el ciclo de vida de la sesión de forma segura.
+* **Perfiles en Nube:** Creación automática de documentos de usuario en **Firestore** vinculados al UID único.
 
-Soporte Multi-método: Permite el acceso mediante correo electrónico/contraseña y Google Sign-In.
+### 2. Sistema de Misiones (Gamificación)
+* **Interfaz Dinámica:** Listado visual de misiones utilizando `RecyclerView` y tarjetas `MaterialCardView`.
+* **Filtrado por Estados:** Organización inteligente mediante `TabLayout` en tres categorías:
+    * **Disponibles:** Misiones abiertas para aceptar.
+    * **Aceptadas:** Desafíos en curso del usuario.
+    * **Completadas:** Historial de logros desbloqueados.
+* **Detalle Inmersivo:** Vista completa con ubicación, dificultad del truco y referencia visual del spot.
 
-Gestión de Sesiones: Mantiene la sesión del usuario activa y permite cerrar sesión de forma segura.
+### 3. Flujo de Progreso y Evidencia
+* **Control de Cupos Globales:** Sistema de vacantes limitadas (ej. 15 cupos) sincronizado entre todos los usuarios en tiempo real.
+* **Validación de Logros:**
+    * Input para enlaces de evidencia (YouTube/Drive).
+    * Generación automática de correos para revisión administrativa.
+    * Actualización inmediata del estado a "Completado" tras el envío.
 
-Perfiles de Usuario: Almacenamiento automático de la información básica del usuario (UID, email) en Cloud Firestore al registrarse.
+## 🛠️ Tecnologías Utilizadas
 
-2. Sistema de Misiones
+* **Lenguajes:**
+    * **Kotlin:** Lógica de UI, Actividades y gestión de eventos.
+    * **Java:** Lógica Core (`PDKMisionManager`) y Modelos de datos (Interoperabilidad).
+* **Arquitectura:** Patrón Singleton para gestión centralizada del estado.
+* **Backend (BaaS):**
+    * **Firebase Authentication:** Gestión de identidad.
+    * **Cloud Firestore:** Base de datos NoSQL para persistencia en tiempo real.
+* **UI/UX:** Material Design, Glide (Carga de imágenes), XML Layouts.
 
-Listado Dinámico: Visualización de misiones mediante RecyclerView con un diseño de tarjetas (MaterialCardView) atractivo.
+## 📋 Modelo de Datos (NoSQL)
 
-Filtrado por Estado: Uso de TabLayout para organizar las misiones en tres categorías:
+El sistema utiliza **Cloud Firestore** con dos colecciones principales que separan la lógica estática de la dinámica:
 
-Disponibles: Misiones que el usuario aún no ha aceptado.
+* **`globalMissions`:** Contiene la definición de las misiones y los contadores globales de cupos.
+* **`users`:** Almacena la información del perfil y una subcolección `userMissions` con el estado individual (ACCEPTED, COMPLETED) de cada usuario.
 
-Aceptadas: Misiones en curso que el usuario ha aceptado.
+## 🔧 Instalación y Configuración
 
-Completadas: Misiones finalizadas con éxito.
+1.  **Clonar el repositorio:**
+    ```bash
+    git clone [https://github.com/tu-usuario/PissDrunxKing.git](https://github.com/tu-usuario/PissDrunxKing.git)
+    ```
 
-Detalle de Misión: Pantalla de detalle (MissionDetailActivity) que muestra información completa (ubicación, truco, dificultad, premio) e imagen del spot.
+2.  **Configurar Firebase:**
+    * Crea un proyecto en [Firebase Console](https://console.firebase.google.com/).
+    * Registra la app con el paquete: `com.Ktoledo.pissdrunxking`.
+    * Descarga el archivo `google-services.json` y colócalo en la carpeta `/app` del proyecto.
+    * Habilita **Authentication** y **Firestore Database**.
 
-3. Flujo de Progreso y Evidencia
+3.  **Compilar y Ejecutar:**
+    * Abre el proyecto en **Android Studio**.
+    * Espera a que Gradle sincronice las dependencias.
+    * Ejecuta la app en un emulador o dispositivo físico conectado.
 
-Aceptar Misión: Los usuarios pueden aceptar misiones disponibles, lo que actualiza su estado en tiempo real.
+## 👤 Autor
 
-Contador Global de Aceptaciones: Sistema de cupos limitados (ej. 15 vacantes) por misión, gestionado globalmente para todos los usuarios.
+**Kleber Toledo A.**
+* [LinkedIn](https://www.linkedin.com/in/kleber-toledo-amaro-51aa23313/)
+* Estudiante de Ingeniería de Ejecución en Informática - Universidad de las Américas
 
-Cancelar Misión: Posibilidad de abandonar una misión aceptada, liberando el cupo.
-
-Enviar Evidencia: Funcionalidad para que los usuarios envíen un enlace de video (YouTube, Drive, etc.) como prueba.
-
-Abre un diálogo para ingresar el enlace.
-
-Genera un correo electrónico pre-llenado con los detalles para el administrador.
-
-Marca automáticamente la misión como Completada en el perfil del usuario.
-
-🛠️ Tecnologías Utilizadas
-
-Lenguajes:
-
-Kotlin: Lenguaje principal para la lógica de la aplicación y actividades.
-
-Java: Utilizado para la clase core PDKMisionManager y modelos de datos, demostrando interoperabilidad.
-
-Arquitectura & Patrones:
-
-Singleton: Implementado en PDKMisionManager para centralizar el estado y la lógica de negocio.
-
-Adaptadores: RecyclerView.Adapter personalizado para el manejo eficiente de listas.
-
-Backend & Nube (Firebase):
-
-Firebase Authentication: Gestión segura de identidades.
-
-Cloud Firestore: Base de datos NoSQL para persistir:
-
-Perfiles de usuarios.
-
-Estado global de las misiones (contadores).
-
-Progreso individual de cada usuario (misiones aceptadas/completadas).
-
-Interfaz de Usuario (UI):
-
-XML Layouts: Diseño de interfaces nativas.
-
-Material Design: Componentes como TabLayout, MaterialCardView, Toolbar.
-
-Glide: Librería para la carga y caché eficiente de imágenes (preparado para URLs, actualmente usando recursos locales).
-
-📋 Modelo de Datos (Firestore)
-
-El sistema utiliza una estructura NoSQL en Firestore:
-
-Colección globalMissions: Almacena la información estática de cada misión y sus contadores globales.
-
-Colección users:
-
-Documento por uid.
-
-Subcolección userMissions: Almacena el estado específico (ACCEPTED, COMPLETED) de cada misión para ese usuario.
-
-🔧 Instalación y Configuración
-
-Clonar el repositorio:
-
-git clone [https://github.com/tu-usuario/PissDrunxKing.git](https://github.com/tu-usuario/PissDrunxKing.git)
-
-
-Configurar Firebase:
-
-Crea un proyecto en Firebase Console.
-
-Registra la app con el paquete com.Ktoledo.pissdrunxking.
-
-Habilita Authentication (Email/Password y Google).
-
-Habilita Firestore Database.
-
-Descarga el archivo google-services.json y colócalo en la carpeta app/ del proyecto.
-
-Compilar y Ejecutar:
-
-Abre el proyecto en Android Studio.
-
-Sincroniza los archivos Gradle.
-
-Ejecuta la aplicación en un emulador o dispositivo físico.
-
-👤 Autor
-
-Kleber Toledo A.
-
-LinkedIn
-
-Estudiante de Ingeniería de Ejecución en Informática
+---
+*Este proyecto demuestra competencias en desarrollo móvil nativo, integración de servicios en la nube y lógica de negocio compleja.*
