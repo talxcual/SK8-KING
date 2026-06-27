@@ -2,11 +2,34 @@
 <resources>
 
     <style name="Theme.PissDrunxKing" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primary_accent</item>
+        <item name="colorPrimaryVariant">@color/surface_color</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/secondary_accent</item>
+        <item name="colorSecondaryVariant">@color/surface_color</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Background and Surface -->
+        <item name="android:colorBackground">@color/bg_color</item>
+        <item name="colorSurface">@color/surface_color</item>
+        <!-- Text -->
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textColorHint">@color/text_muted</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/bg_color</item>
     </style>
 
     <style name="Theme.PissDrunxKing.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Sk8KingTabText" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">sans-serif-condensed</item>
+        <item name="textAllCaps">true</item>
     </style>
 
 </resources>

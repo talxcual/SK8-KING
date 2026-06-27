@@ -1,4 +1,3 @@
-// Archivo: MissionsListActivity.kt
 package com.Ktoledo.pissdrunxking
 
 import android.content.Intent
@@ -13,16 +12,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
-// import java.util.Collections // No se necesita importar aquí si ya lo maneja PDKMisionManager
 
-class MissionsListActivity : AppCompatActivity(), PDKMisionManager.MisionUpdateListener { // Implementar la interfaz
+class MissionsListActivity : AppCompatActivity(), PDKMisionManager.MisionUpdateListener {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var missionsAdapter: MissionsAdapter
+    private lateinit var viewPager: ViewPager2
+    private lateinit var pagerAdapter: MissionsPagerAdapter
     private lateinit var pdkGestor: PDKMisionManager
     private lateinit var tabLayoutMissionTypes: TabLayout
 
@@ -32,19 +30,13 @@ class MissionsListActivity : AppCompatActivity(), PDKMisionManager.MisionUpdateL
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "Lista de Misiones"
+        supportActionBar?.setDisplayShowTitleEnabled(false) // Let the custom TextView handle the title
 
-        // *** CAMBIO CLAVE: Inicializar las vistas ANTES de interactuar con el gestor de misiones ***
-        // Esto asegura que 'tabLayoutMissionTypes' y 'recyclerView' estén listos
-        // antes de que se dispare cualquier callback de misiones que los use.
         tabLayoutMissionTypes = findViewById(R.id.tabLayoutMissionTypes)
-        recyclerView = findViewById(R.id.rvMissions)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        viewPager = findViewById(R.id.viewPagerMissions)
 
-        // Inicializa el adaptador con una lista mutable vacía
-        missionsAdapter = MissionsAdapter(
+        pagerAdapter = MissionsPagerAdapter(
             this,
-            mutableListOf(), // Inicialmente vacía, pero mutable
             onAcceptMissionClick = { mission ->
                 pdkGestor.pdkAceptarMision(mission)
             },
@@ -55,33 +47,37 @@ class MissionsListActivity : AppCompatActivity(), PDKMisionManager.MisionUpdateL
                 pdkGestor.pdkCancelarMision(mission)
             }
         )
-        recyclerView.adapter = missionsAdapter
+        viewPager.adapter = pagerAdapter
 
-        setupTabLayout() // Configura los listeners de las pestañas
-        // tabLayoutMissionTypes.selectTab(tabLayoutMissionTypes.getTabAt(0)) // Esta línea se puede quitar si el onResume() ya maneja la carga inicial.
-        // Si onMisionsLoaded se dispara inmediatamente al setear el listener,
-        // la primera pestaña se actualizará con los datos.
+        TabLayoutMediator(tabLayoutMissionTypes, viewPager) { tab, position ->
+            tab.text = when (position) {
+                0 -> "Disponibles"
+                1 -> "Aceptadas"
+                2 -> "Completadas"
+                3 -> "Kings"
+                else -> ""
+            }
+        }.attach()
 
-        // *** Inicializar PDKMisionManager y establecer el listener DESPUÉS de que las vistas estén listas ***
         pdkGestor = PDKMisionManager.getInstance(this)
-        pdkGestor.setMisionUpdateListener(this) // Ahora, cuando onMisionsLoaded se llame, tabLayoutMissionTypes ya existirá.
-        pdkGestor.startListeningForMissions() // Comienza a escuchar actualizaciones de misiones
+        pdkGestor.setMisionUpdateListener(this)
+        pdkGestor.startListeningForMissions()
     }
 
     override fun onResume() {
         super.onResume()
-        pdkGestor.setMisionUpdateListener(this) // Reestablecer el listener por si la actividad se reanuda
-        pdkGestor.startListeningForMissions() // Asegurar que se sigue escuchando las misiones
+        pdkGestor.setMisionUpdateListener(this)
+        pdkGestor.startListeningForMissions()
     }
 
     override fun onPause() {
         super.onPause()
-        pdkGestor.removeMisionUpdateListener() // Detener el listener para evitar fugas de memoria
+        pdkGestor.removeMisionUpdateListener()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        pdkGestor.removeMisionUpdateListener() // Detener el listener al destruir la actividad
+        pdkGestor.removeMisionUpdateListener()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -95,7 +91,7 @@ class MissionsListActivity : AppCompatActivity(), PDKMisionManager.MisionUpdateL
                 performSignOut()
                 true
             }
-            R.id.action_clear_data -> { // Asegúrate de que este ID exista en tu res/menu/menu_missions_list.xml
+            R.id.action_clear_data -> {
                 pdkGestor.clearAllMisionesAndFirestoreData();
                 Toast.makeText(this, "Datos de prueba borrados y reiniciados.", Toast.LENGTH_SHORT).show();
                 true
@@ -106,7 +102,7 @@ class MissionsListActivity : AppCompatActivity(), PDKMisionManager.MisionUpdateL
 
     private fun performSignOut() {
         FirebaseAuth.getInstance().signOut()
-        pdkGestor.removeMisionUpdateListener() // Es buena práctica remover el listener antes de cambiar de actividad
+        pdkGestor.removeMisionUpdateListener()
         val intent = Intent(this, AuthActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
@@ -114,47 +110,18 @@ class MissionsListActivity : AppCompatActivity(), PDKMisionManager.MisionUpdateL
         Toast.makeText(this, "Sesión cerrada correctamente.", Toast.LENGTH_SHORT).show()
     }
 
-    private fun setupTabLayout() {
-        tabLayoutMissionTypes.addTab(tabLayoutMissionTypes.newTab().setText("Disponibles"))
-        tabLayoutMissionTypes.addTab(tabLayoutMissionTypes.newTab().setText("Aceptadas"))
-        tabLayoutMissionTypes.addTab(tabLayoutMissionTypes.newTab().setText("Completadas"))
-
-        tabLayoutMissionTypes.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                updateAdapterWithCurrentData()
-            }
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                updateAdapterWithCurrentData()
-            }
-        })
-    }
-
-    // Implementación de la interfaz MisionUpdateListener
     override fun onMisionsLoaded(available: List<PDKspot>, accepted: List<PDKspot>, completed: List<PDKspot>) {
         Log.d("MissionsListActivity", "onMisionsLoaded - Disponibles: ${available.size}, Aceptadas: ${accepted.size}, Completadas: ${completed.size}")
-        // Aquí es donde necesitamos pasar MutableList al adaptador
-        updateAdapterWithCurrentData(available, accepted, completed)
+        pagerAdapter.updateData(
+            available ?: pdkGestor.pdkGetMisionesDisponibles(),
+            accepted ?: pdkGestor.pdkGetMisionesAceptadasPorUsuario(),
+            completed ?: pdkGestor.pdkGetMisionesCompletadasPorUsuario()
+        )
     }
 
     override fun onError(message: String) {
         Toast.makeText(this, "Error en misiones: $message", Toast.LENGTH_LONG).show()
         Log.e("MissionsListActivity", "Error: $message")
-    }
-
-    // Método para actualizar el adaptador con los datos correctos de la pestaña seleccionada
-    private fun updateAdapterWithCurrentData(available: List<PDKspot>? = null, accepted: List<PDKspot>? = null, completed: List<PDKspot>? = null) {
-        // Asegúrate de que las listas que pasas sean MutableList
-        // Usamos .toMutableList() para convertir List<PDKspot> a MutableList<PDKspot>
-        val currentAvailable = (available ?: pdkGestor.pdkGetMisionesDisponibles()).toMutableList()
-        val currentAccepted = (accepted ?: pdkGestor.pdkGetMisionesAceptadasPorUsuario()).toMutableList()
-        val currentCompleted = (completed ?: pdkGestor.pdkGetMisionesCompletadasPorUsuario()).toMutableList()
-
-        when (tabLayoutMissionTypes.selectedTabPosition) {
-            0 -> missionsAdapter.updateMissions(currentAvailable, MissionType.AVAILABLE)
-            1 -> missionsAdapter.updateMissions(currentAccepted, MissionType.ACCEPTED)
-            2 -> missionsAdapter.updateMissions(currentCompleted, MissionType.COMPLETED)
-        }
     }
 
     private fun showSubmitEvidenceDialog(mission: PDKspot) {

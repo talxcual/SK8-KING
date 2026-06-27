@@ -1,1 +1,55 @@
-Y bueno aquí no hay nada c:
+{
+  "project_info": {
+    "project_number": "572423904102",
+    "project_id": "pissdrunxking-625b5",
+    "storage_bucket": "pissdrunxking-625b5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572423904102:android:d05c9d029ba269b20046a7",
+        "android_client_info": {
+          "package_name": "com.Ktoledo.pissdrunxking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "572423904102-g0ckqacc6eerqbo0po6q7qdgffse7526.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.Ktoledo.pissdrunxking",
+            "certificate_hash": "bd3138ee3b2a328552862831b031298ee7f2fd07"
+          }
+        },
+        {
+          "client_id": "572423904102-jefck40eebjoip6tg4e8iagnlq6c9jv7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.Ktoledo.pissdrunxking",
+            "certificate_hash": "864f4c00358110a98275982030f3191119d4ad25"
+          }
+        },
+        {
+          "client_id": "572423904102-esss3c1t8867brnqbmp9rfatvg0kvpu0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaE1qXyncdiyfdFPdOUtKSIUKPQVIE2XM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "572423904102-esss3c1t8867brnqbmp9rfatvg0kvpu0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:layout_marginHorizontal="16dp"
+    android:background="@drawable/badge_difficulty_media"
+    android:backgroundTint="@color/surface_color"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:gravity="center_vertical"
+    android:elevation="0dp">
+
+    <!-- Rank -->
+    <TextView
+        android:id="@+id/tvKingRank"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/badge_difficulty_media"
+        android:backgroundTint="@color/primary_accent"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed"
+        tools:text="1" />
+
+    <!-- Name -->
+    <TextView
+        android:id="@+id/tvKingName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/text_primary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed"
+        tools:text="TonyHawk99" />
+
+    <!-- Likes -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+        
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@android:drawable/btn_star_big_on"
+            app:tint="@color/primary_accent" />
+            
+        <TextView
+            android:id="@+id/tvKingLikes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary_accent"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="1420" />
+    </LinearLayout>
+
+</LinearLayout>

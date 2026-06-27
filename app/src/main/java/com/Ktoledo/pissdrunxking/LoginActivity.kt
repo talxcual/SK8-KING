@@ -6,8 +6,10 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 
 class LoginActivity : AppCompatActivity() {
 
@@ -20,6 +22,13 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        // Cargar GIF
+        val ivSk8KingGif = findViewById<ImageView>(R.id.ivSk8KingGif)
+        Glide.with(this)
+            .asGif()
+            .load(R.drawable.sk8king)
+            .into(ivSk8KingGif)
 
         // Inicializar vistas
         etUsername = findViewById(R.id.etUsername)

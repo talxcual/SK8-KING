@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">PissDrunxKing</string>
+    <string name="app_name">SK8KING</string>
 
     <string name="hint_email">Email</string>
     <string name="hint_password">Contraseña</string>
@@ -9,7 +9,7 @@
     <string name="text_or">O</string>
     <string name="button_google_signin">Iniciar Sesión con Google</string>
     <string name="status_auth_initial">Estado de Autenticación</string>
-    <string name="default_web_client_id">TU_WEB_CLIENT_ID_AQUI.apps.googleusercontent.com</string>
+    <string name="default_web_client_id">572423904102-esss3c1t8867brnqbmp9rfatvg0kvpu0.apps.googleusercontent.com</string>
 
     <string name="google_signin_cancelled">Inicio de sesión con Google cancelado.</string>
     <string name="google_signin_network_error">Error de red al iniciar sesión con Google. Revisa tu conexión.</string>

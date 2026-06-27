@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -22,16 +24,16 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.firestore.FirebaseFirestore // <-- ¡IMPORTANTE! Añadida esta importación
-import com.google.firebase.firestore.ktx.firestore // <-- ¡IMPORTANTE! Añadida esta importación para la extensión ktx
-import com.google.firebase.auth.FirebaseUser // Importar FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore 
+import com.google.firebase.firestore.ktx.firestore 
+import com.google.firebase.auth.FirebaseUser 
 
 class AuthActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
-    private lateinit var db: FirebaseFirestore // <-- ¡NUEVO! Instancia de Firestore
+    private lateinit var db: FirebaseFirestore 
 
     private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
@@ -45,7 +47,13 @@ class AuthActivity : AppCompatActivity() {
         setContentView(R.layout.activity_auth)
 
         auth = Firebase.auth
-        db = Firebase.firestore // <-- ¡NUEVO! Inicializar Firestore
+        db = Firebase.firestore 
+
+        val ivSk8KingGif = findViewById<ImageView>(R.id.ivSk8KingGif)
+        Glide.with(this)
+            .asGif()
+            .load(R.drawable.sk8king)
+            .into(ivSk8KingGif)
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))

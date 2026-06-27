@@ -1,79 +1,126 @@
-# 🛹 PissDrunxKing - App de Gestión de Misiones de Skate
+# SK8KING 🛹👑
 
-![Android](https://img.shields.io/badge/Android-Native-3DDC84?style=flat&logo=android)
-![Kotlin](https://img.shields.io/badge/Language-Kotlin-7F52FF?style=flat&logo=kotlin)
-![Java](https://img.shields.io/badge/Language-Java-ED8B00?style=flat&logo=java)
-![Firebase](https://img.shields.io/badge/Backend-Firebase-FFCA28?style=flat&logo=firebase)
+<p align="center">
+  <img src="screenshots/ss_login.jpg" width="220" alt="Login Screen"/>
+  &nbsp;&nbsp;
+  <img src="screenshots/ss_missions.jpg" width="220" alt="Missions Screen"/>
+  &nbsp;&nbsp;
+  <img src="screenshots/ss_mission_detail.jpg" width="220" alt="Mission Detail"/>
+  &nbsp;&nbsp;
+  <img src="screenshots/ss_kings.jpg" width="220" alt="Kings Semanales"/>
+</p>
 
-## 📄 Descripción del Proyecto
-
-**PissDrunxKing** es una aplicación móvil nativa diseñada para la comunidad skater, cuyo objetivo es **gamificar la experiencia del skate** mediante un sistema de misiones y desafíos reales.
-
-El proyecto destaca por su arquitectura híbrida (**Kotlin + Java**) y una gestión robusta de datos en la nube. Los usuarios exploran spots, aceptan misiones con cupos limitados y validan sus trucos mediante evidencia en video, todo sincronizado en tiempo real.
-
-## 🚀 Funcionalidades Principales
-
-### 1. Gestión de Usuarios (Auth)
-* **Acceso Multi-plataforma:** Autenticación robusta vía **Correo/Contraseña** y **Google Sign-In**.
-* **Persistencia de Sesión:** Mantiene al usuario conectado y gestiona el ciclo de vida de la sesión de forma segura.
-* **Perfiles en Nube:** Creación automática de documentos de usuario en **Firestore** vinculados al UID único.
-
-### 2. Sistema de Misiones (Gamificación)
-* **Interfaz Dinámica:** Listado visual de misiones utilizando `RecyclerView` y tarjetas `MaterialCardView`.
-* **Filtrado por Estados:** Organización inteligente mediante `TabLayout` en tres categorías:
-    * **Disponibles:** Misiones abiertas para aceptar.
-    * **Aceptadas:** Desafíos en curso del usuario.
-    * **Completadas:** Historial de logros desbloqueados.
-* **Detalle Inmersivo:** Vista completa con ubicación, dificultad del truco y referencia visual del spot.
-
-### 3. Flujo de Progreso y Evidencia
-* **Control de Cupos Globales:** Sistema de vacantes limitadas (ej. 15 cupos) sincronizado entre todos los usuarios en tiempo real.
-* **Validación de Logros:**
-    * Input para enlaces de evidencia (YouTube/Drive).
-    * Generación automática de correos para revisión administrativa.
-    * Actualización inmediata del estado a "Completado" tras el envío.
-
-## 🛠️ Tecnologías Utilizadas
-
-* **Lenguajes:**
-    * **Kotlin:** Lógica de UI, Actividades y gestión de eventos.
-    * **Java:** Lógica Core (`PDKMisionManager`) y Modelos de datos (Interoperabilidad).
-* **Arquitectura:** Patrón Singleton para gestión centralizada del estado.
-* **Backend (BaaS):**
-    * **Firebase Authentication:** Gestión de identidad.
-    * **Cloud Firestore:** Base de datos NoSQL para persistencia en tiempo real.
-* **UI/UX:** Material Design, Glide (Carga de imágenes), XML Layouts.
-
-## 📋 Modelo de Datos (NoSQL)
-
-El sistema utiliza **Cloud Firestore** con dos colecciones principales que separan la lógica estática de la dinámica:
-
-* **`globalMissions`:** Contiene la definición de las misiones y los contadores globales de cupos.
-* **`users`:** Almacena la información del perfil y una subcolección `userMissions` con el estado individual (ACCEPTED, COMPLETED) de cada usuario.
-
-## 🔧 Instalación y Configuración
-
-1.  **Clonar el repositorio:**
-    ```bash
-    git clone [https://github.com/tu-usuario/PissDrunxKing.git](https://github.com/tu-usuario/PissDrunxKing.git)
-    ```
-
-2.  **Configurar Firebase:**
-    * Crea un proyecto en [Firebase Console](https://console.firebase.google.com/).
-    * Registra la app con el paquete: `com.Ktoledo.pissdrunxking`.
-    * Descarga el archivo `google-services.json` y colócalo en la carpeta `/app` del proyecto.
-    * Habilita **Authentication** y **Firestore Database**.
-
-3.  **Compilar y Ejecutar:**
-    * Abre el proyecto en **Android Studio**.
-    * Espera a que Gradle sincronice las dependencias.
-    * Ejecuta la app en un emulador o dispositivo físico conectado.
-
-## 👤 Autor
-
-**Kleber Toledo A.**
-* [LinkedIn](https://www.linkedin.com/in/kleber-toledo-amaro-51aa23313/)
-* Estudiante de Ingeniería de Ejecución en Informática - Universidad de las Américas
+<p align="center">
+  <strong>La plataforma de misiones y desafíos de skateboarding más cruda de la calle.</strong>
+</p>
 
 ---
-*Este proyecto demuestra competencias en desarrollo móvil nativo, integración de servicios en la nube y lógica de negocio compleja.*
+
+## ¿Qué es SK8KING?
+
+**SK8KING** es una aplicación Android nativa para la comunidad skater. Conecta a riders de todo Chile a través de misiones en spots reales, un sistema de rankings semanales y evidencia en video de cada truco completado.
+
+> Sin filtros. Sin posers. Solo skate real.
+
+---
+
+## ✨ Características
+
+- 🔐 **Login con Email / Google** — Autenticación con Firebase Auth
+- 🗺️ **Misiones por Spot** — Desafíos reales en ubicaciones físicas de Chile
+- ✅ **Sistema de Estado** — Disponibles → Aceptadas → Completadas
+- 👆 **Navegación por Swipe** — Desliza entre pestañas suavemente con ViewPager2
+- 📹 **Envío de Evidencia** — Envía el link a tu video del truco completado
+- 👑 **Kings Semanales** — Ranking semanal de los skaters con más likes
+- 🎨 **Estética Street** — UI dark mode con neón amarillo, fuente Bebas Neue y fondo de cerámica urbana
+
+---
+
+## 📱 Pantallas
+
+| Login | Misiones | Detalle | Kings |
+|-------|----------|---------|-------|
+| <img src="screenshots/ss_login.jpg" width="180"/> | <img src="screenshots/ss_missions.jpg" width="180"/> | <img src="screenshots/ss_mission_detail.jpg" width="180"/> | <img src="screenshots/ss_kings.jpg" width="180"/> |
+
+---
+
+## 🛠️ Stack Tecnológico
+
+| Tecnología | Uso |
+|---|---|
+| **Kotlin** | Lenguaje principal |
+| **Firebase Auth** | Autenticación de usuarios |
+| **Cloud Firestore** | Base de datos en tiempo real |
+| **Glide** | Carga de imágenes y GIFs |
+| **ViewPager2** | Navegación por swipe entre tabs |
+| **Material Components** | UI Components (TabLayout, Buttons) |
+| **ConstraintLayout / LinearLayout** | Arquitectura de layouts |
+| **Bebas Neue** | Tipografía del diseño |
+
+---
+
+## 🚀 Instalación
+
+### Requisitos
+- Android Studio Hedgehog o superior
+- Android SDK 26+
+- Cuenta de Firebase con proyecto configurado
+
+### Pasos
+
+```bash
+git clone https://github.com/talxcual/SK8-KING.git
+cd SK8-KING
+```
+
+1. Abre el proyecto en **Android Studio**
+2. Conecta tu proyecto de Firebase y coloca tu `google-services.json` en `/app`
+3. Sincroniza Gradle
+4. Corre la app en un emulador o dispositivo físico
+
+---
+
+## 🎨 Diseño
+
+La UI está inspirada en la cultura skate urbana:
+- **Fondo:** Cerámica de ajedrez sucia en escala de grises
+- **Acento primario:** Amarillo eléctrico `#F5FF00`
+- **Tipografía:** Bebas Neue (condensada, impacto)
+- **Bordes:** Efecto neón tipo graffiti en los inputs
+- **Logo:** GIF animado del mascot SK8KING
+
+---
+
+## 📂 Estructura del Proyecto
+
+```
+app/
+├── java/com/Ktoledo/pissdrunxking/
+│   ├── AuthActivity.kt          # Login y registro con Firebase
+│   ├── MissionsListActivity.kt  # Pantalla principal con ViewPager2
+│   ├── MissionDetailActivity.kt # Detalle de misión
+│   ├── MissionAdapter.kt        # Adapter para tarjetas de misión
+│   ├── MissionsPagerAdapter.kt  # Adapter del ViewPager (4 tabs)
+│   ├── KingsAdapter.kt          # Adapter del ranking Kings
+│   ├── PDKspot.java             # Modelo de datos: Misión/Spot
+│   ├── PDKMisionManager.java    # Manager Singleton con Firestore
+│   ├── PDKKing.kt               # Modelo de datos: King
+│   └── PDKKingsManager.kt       # Manager de Kings (mock data)
+└── res/
+    ├── layout/                  # XML de pantallas y tarjetas
+    ├── drawable/                # Backgrounds neón, badges, logo
+    ├── font/                    # Bebas Neue TTF
+    └── values/                  # Colors, themes, strings
+```
+
+---
+
+## 📜 Licencia
+
+Proyecto privado — **SK8KING** © 2025. Todos los derechos reservados.
+
+---
+
+<p align="center">
+  Hecho con 🛹 y mucho neón amarillo en Chile.
+</p>

@@ -5,69 +5,197 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:background="@color/bg_color"
+    android:padding="24dp"
     tools:context=".LoginActivity">
 
     <TextView
         android:id="@+id/tvWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bienvenido a Piss Drunx King"
-        android:textSize="24sp"
+        android:text="SK8KING"
+        android:textColor="@color/text_primary"
+        android:textSize="64sp"
         android:textStyle="bold"
-        android:layout_marginTop="64dp"
+        android:fontFamily="sans-serif-condensed"
+        android:letterSpacing="0.05"
+        android:layout_marginTop="16dp"
+        android:shadowColor="@color/primary_accent"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivSk8KingGif"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="SK8KING logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvWelcome" />
+
+    <TextView
+        android:id="@+id/tvEmailLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="EMAIL"
+        android:textColor="@color/text_primary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivSk8KingGif" />
 
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Nombre de usuario"
-        android:inputType="text"
+        android:hint="ejemplo@correo.com"
+        android:textColorHint="@color/text_muted"
+        android:textColor="@color/text_primary"
+        android:inputType="textEmailAddress"
+        android:backgroundTint="@color/border_subtle"
         android:padding="12dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvWelcome"
-        app:layout_constraintWidth_percent="0.8" />
+        app:layout_constraintTop_toBottomOf="@id/tvEmailLabel" />
+
+    <TextView
+        android:id="@+id/tvPasswordLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="CONTRASEÑA"
+        android:textColor="@color/text_primary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etUsername" />
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Contraseña"
+        android:hint="••••••••"
+        android:textColorHint="@color/text_muted"
+        android:textColor="@color/text_primary"
         android:inputType="textPassword"
+        android:backgroundTint="@color/border_subtle"
         android:padding="12dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etUsername"
-        app:layout_constraintWidth_percent="0.8" />
+        app:layout_constraintTop_toBottomOf="@id/tvPasswordLabel" />
 
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Iniciar Sesión"
-        android:padding="12dp"
+        android:text="INICIAR SESIÓN"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/primary_accent"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed"
+        android:padding="16dp"
+        app:cornerRadius="4dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etPassword"
-        app:layout_constraintWidth_percent="0.8" />
+        app:layout_constraintTop_toBottomOf="@id/etPassword" />
 
-    <Button
+    <!-- Separator -->
+    <View
+        android:id="@+id/vSeparatorLeft"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/border_subtle"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toStartOf="@id/tvOr"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnLogin" />
+
+    <TextView
+        android:id="@+id/tvOr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="o"
+        android:textColor="@color/text_muted"
+        app:layout_constraintBottom_toBottomOf="@id/vSeparatorLeft"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/vSeparatorLeft" />
+
+    <View
+        android:id="@+id/vSeparatorRight"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/border_subtle"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@id/vSeparatorLeft"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvOr"
+        app:layout_constraintTop_toTopOf="@id/vSeparatorLeft" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnRegister"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Registrarse"
-        android:padding="12dp"
+        android:text="REGISTRAR"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed"
+        android:padding="16dp"
+        app:strokeColor="@color/white"
+        app:strokeWidth="2dp"
+        app:cornerRadius="4dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvOr" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGoogleLogin"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="INICIAR SESIÓN CON GOOGLE"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed"
+        android:padding="16dp"
+        app:backgroundTint="#1A1A1A"
+        app:strokeColor="@color/border_subtle"
+        app:strokeWidth="2dp"
+        app:cornerRadius="4dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnLogin"
-        app:layout_constraintWidth_percent="0.8" />
+        app:layout_constraintTop_toBottomOf="@id/btnRegister" />
+
+    <TextView
+        android:id="@+id/tvAuthState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Estado de Autenticación: No iniciado"
+        android:textColor="#555555"
+        android:textSize="12sp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

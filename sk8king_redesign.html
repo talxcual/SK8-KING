@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SK8KING Redesign</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-color: #0A0A0A;
+    --surface-color: #111111;
+    --primary-accent: #F5FF00;
+    --secondary-accent: #FF0055;
+    --tertiary-accent: #00FF88;
+    --brand-purple: #6600FF;
+    --text-primary: #FFFFFF;
+    --text-muted: #888888;
+    --danger: #FF3333;
+    --border-subtle: #333333;
+  }
+  
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    background-color: #222;
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    padding: 40px;
+    justify-content: center;
+  }
+
+  h1, h2, h3, .bebas {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .device-frame {
+    width: 390px;
+    height: 844px;
+    background-color: var(--bg-color);
+    border: 8px solid #000;
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .status-bar {
+    height: 44px;
+    background: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 10;
+  }
+
+  /* App Bar */
+  .app-bar {
+    height: 56px;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+  }
+  .app-bar .title {
+    font-size: 28px;
+    color: var(--text-primary);
+    flex-grow: 1;
+    text-align: center;
+  }
+  .app-bar .icon {
+    width: 24px;
+    height: 24px;
+    fill: var(--text-primary);
+  }
+
+  /* Tabs */
+  .tab-bar {
+    display: flex;
+    background-color: #000;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 16px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    position: relative;
+  }
+  .tab.active {
+    color: var(--primary-accent);
+  }
+  .tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: var(--primary-accent);
+  }
+
+  /* Content Area */
+  .content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .content.no-padding {
+    padding: 0;
+  }
+  .content.center-content {
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Mission Cards */
+  .mission-card {
+    background-color: var(--surface-color);
+    border: 2px solid var(--border-subtle);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .mission-card.highlight {
+    border-color: var(--primary-accent);
+  }
+  .card-image-container {
+    height: 200px;
+    position: relative;
+  }
+  .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .card-gradient {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(to top, var(--surface-color), transparent);
+  }
+  .card-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .card-title {
+    font-size: 24px;
+    color: var(--text-primary);
+  }
+  .difficulty-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #000;
+  }
+  .difficulty-media { background-color: var(--primary-accent); }
+  .difficulty-dificil { background-color: var(--danger); }
+  
+  .metadata-row {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  .meta-label { color: var(--text-muted); }
+  .meta-value { color: var(--text-primary); }
+  .meta-global {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 4px;
+  }
+
+  .card-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  
+  /* Buttons */
+  .btn {
+    padding: 14px 16px;
+    border-radius: 4px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary {
+    background-color: var(--primary-accent);
+    color: #000;
+  }
+  .btn-secondary {
+    background-color: var(--secondary-accent);
+    color: #FFF;
+  }
+  .btn-outline-danger {
+    background-color: transparent;
+    border: 2px solid var(--danger);
+    color: var(--danger);
+  }
+  .btn-outline-white {
+    background-color: transparent;
+    border: 2px solid #FFF;
+    color: #FFF;
+  }
+  .btn-google {
+    background-color: #1A1A1A;
+    border: 2px solid #333;
+    color: #FFF;
+  }
+
+  /* Login Screen */
+  .login-bg {
+    background: url('https://images.unsplash.com/photo-1564982752979-3f7bc974d29a?q=80&w=600&auto=format&fit=crop') center/cover;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    opacity: 0.3;
+    z-index: 0;
+  }
+  .login-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 24px;
+    height: 100%;
+  }
+  .login-logo {
+    font-size: 64px;
+    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: 60px;
+    margin-top: 40px;
+    text-shadow: 2px 2px 0 var(--primary-accent);
+  }
+  .input-group {
+    margin-bottom: 24px;
+  }
+  .input-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .input-field {
+    width: 100%;
+    background-color: #000;
+    border: none;
+    border-bottom: 1px solid #444;
+    padding: 12px 0;
+    color: var(--text-primary);
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+  }
+  .input-field::placeholder {
+    color: var(--text-muted);
+  }
+  .login-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 24px 0;
+    color: var(--text-muted);
+  }
+  .login-divider::before, .login-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #333;
+  }
+  .login-divider span {
+    padding: 0 16px;
+    font-size: 14px;
+  }
+  .auth-state {
+    text-align: center;
+    font-size: 12px;
+    color: #555;
+    margin-top: auto;
+    margin-bottom: 20px;
+  }
+
+  /* Empty State */
+  .empty-state {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .empty-icon {
+    width: 64px;
+    height: 64px;
+    stroke: #333;
+    fill: none;
+    stroke-width: 2;
+  }
+  .empty-text {
+    font-size: 24px;
+    color: #555;
+  }
+
+  /* Dropdown Menu */
+  .dropdown-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 100;
+  }
+  .dropdown-menu {
+    position: absolute;
+    top: 60px;
+    right: 16px;
+    background-color: var(--surface-color);
+    border: 2px solid var(--primary-accent);
+    border-radius: 4px;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+  }
+  .dropdown-item {
+    padding: 16px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .dropdown-item:hover {
+    background-color: var(--primary-accent);
+    color: #000;
+  }
+  .dropdown-item:not(:last-child) {
+    border-bottom: 1px solid var(--border-subtle);
+  }
+</style>
+</head>
+<body>
+
+  <!-- Screen 1: Login -->
+  <div class="device-frame">
+    <div class="login-bg"></div>
+    <div class="login-content">
+      <div class="login-logo bebas">SK8KING</div>
+      
+      <div class="input-group">
+        <label class="input-label">EMAIL</label>
+        <input type="email" class="input-field" placeholder="ejemplo@correo.com">
+      </div>
+      
+      <div class="input-group">
+        <label class="input-label">CONTRASEÑA</label>
+        <input type="password" class="input-field" placeholder="••••••••">
+      </div>
+      
+      <button class="btn btn-primary" style="margin-top: 16px;">INICIAR SESIÓN</button>
+      
+      <div class="login-divider"><span>o</span></div>
+      
+      <button class="btn btn-outline-white" style="margin-bottom: 16px;">REGISTRAR</button>
+      
+      <button class="btn btn-google">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        INICIAR SESIÓN CON GOOGLE
+      </button>
+      
+      <div class="auth-state">Estado de Autenticación: No iniciado</div>
+    </div>
+  </div>
+
+  <!-- Screen 2: Available Missions -->
+  <div class="device-frame">
+    <div class="app-bar">
+      <div style="width: 24px;"></div>
+      <div class="title bebas">SK8KING</div>
+      <svg class="icon" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+    </div>
+    <div class="tab-bar">
+      <div class="tab active">DISPONIBLES</div>
+      <div class="tab">ACEPTADAS</div>
+      <div class="tab">COMPLETADAS</div>
+    </div>
+    <div class="content">
+      
+      <div class="mission-card highlight">
+        <div class="card-image-container">
+          <img class="card-image" src="https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?q=80&w=600&auto=format&fit=crop" alt="Cerro San Cristobal">
+          <div class="card-gradient"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-header">
+            <div class="card-title bebas">CERRO SAN CRISTOBAL</div>
+            <div class="difficulty-badge difficulty-media">MEDIA</div>
+          </div>
+          <div class="metadata-row"><span class="meta-label">Ubicación:</span> <span class="meta-value">Santiago</span></div>
+          <div class="metadata-row"><span class="meta-label">Recompensa:</span> <span class="meta-value">Polera SK8KING</span></div>
+          <div class="card-actions">
+            <button class="btn btn-primary">ACEPTAR MISIÓN</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mission-card">
+        <div class="card-image-container">
+          <img class="card-image" src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=600&auto=format&fit=crop" alt="Plaza de los Reyes">
+          <div class="card-gradient"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-header">
+            <div class="card-title bebas">PLAZA DE LOS REYES</div>
+            <div class="difficulty-badge difficulty-dificil">DIFÍCIL</div>
+          </div>
+          <div class="metadata-row"><span class="meta-label">Ubicación:</span> <span class="meta-value">Santiago</span></div>
+          <div class="metadata-row"><span class="meta-label">Recompensa:</span> <span class="meta-value">Polera SK8KING</span></div>
+          <div class="card-actions">
+            <button class="btn btn-primary">ACEPTAR MISIÓN</button>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Screen 3: Accepted Missions -->
+  <div class="device-frame">
+    <div class="app-bar">
+      <div style="width: 24px;"></div>
+      <div class="title bebas">SK8KING</div>
+      <svg class="icon" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+    </div>
+    <div class="tab-bar">
+      <div class="tab">DISPONIBLES</div>
+      <div class="tab active">ACEPTADAS</div>
+      <div class="tab">COMPLETADAS</div>
+    </div>
+    <div class="content">
+      
+      <div class="mission-card highlight">
+        <div class="card-image-container">
+          <img class="card-image" src="https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?q=80&w=600&auto=format&fit=crop" alt="Cerro San Cristobal">
+          <div class="card-gradient"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-header">
+            <div class="card-title bebas">CERRO SAN CRISTOBAL</div>
+            <div class="difficulty-badge difficulty-media">MEDIA</div>
+          </div>
+          <div class="metadata-row"><span class="meta-label">Ubicación:</span> <span class="meta-value">Santiago</span></div>
+          <div class="metadata-row"><span class="meta-label">Truco:</span> <span class="meta-value">Grind en rampa</span></div>
+          <div class="metadata-row"><span class="meta-label">Truco:</span> <span class="meta-value">Gratutas</span></div>
+          <div class="metadata-row"><span class="meta-label">Dificultad:</span> <span class="meta-value">Media</span></div>
+          <div class="metadata-row"><span class="meta-label">Recompensa:</span> <span class="meta-value">Polera PissDrunxKing</span></div>
+          <div class="meta-global">Aceptaciones globales: 1</div>
+          <div class="card-actions">
+            <button class="btn btn-outline-danger">CANCELAR MISIÓN</button>
+            <button class="btn btn-secondary">ENVIAR EVIDENCIA</button>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Screen 4: Empty State -->
+  <div class="device-frame">
+    <div class="app-bar">
+      <div style="width: 24px;"></div>
+      <div class="title bebas">SK8KING</div>
+      <svg class="icon" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+    </div>
+    <div class="tab-bar">
+      <div class="tab">DISPONIBLES</div>
+      <div class="tab active">ACEPTADAS</div>
+      <div class="tab">COMPLETADAS</div>
+    </div>
+    <div class="content center-content">
+      <div class="empty-state">
+        <svg class="empty-icon" viewBox="0 0 24 24">
+          <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+        </svg>
+        <div class="empty-text bebas">SIN MISIONES AÚN</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen 5: Dropdown Menu Overlay -->
+  <div class="device-frame">
+    <div class="app-bar">
+      <div style="width: 24px;"></div>
+      <div class="title bebas">SK8KING</div>
+      <svg class="icon" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+    </div>
+    <div class="tab-bar">
+      <div class="tab active">DISPONIBLES</div>
+      <div class="tab">ACEPTADAS</div>
+      <div class="tab">COMPLETADAS</div>
+    </div>
+    <div class="content" style="filter: blur(2px);">
+      <div class="mission-card highlight">
+        <div class="card-image-container">
+          <img class="card-image" src="https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?q=80&w=600&auto=format&fit=crop" alt="Cerro San Cristobal">
+          <div class="card-gradient"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="dropdown-overlay">
+      <div class="dropdown-menu">
+        <a href="#" class="dropdown-item">CERRAR SESIÓN</a>
+        <a href="#" class="dropdown-item">LIMPIAR DATOS DE PRUEBA</a>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

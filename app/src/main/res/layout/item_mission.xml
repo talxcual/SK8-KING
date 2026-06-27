@@ -1,96 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    app:cardBackgroundColor="@color/surface_color"
+    app:strokeColor="@color/border_subtle"
+    app:strokeWidth="2dp"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/imgMission"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:scaleType="centerCrop"
-            android:layout_marginBottom="8dp"
-            android:src="@drawable/placeholder_image" /> <TextView
-        android:id="@+id/tvMissionName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nombre de la Misión"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="4dp" />
+            android:layout_height="200dp">
 
-        <TextView
-            android:id="@+id/tvLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ubicación: "
-            android:textSize="16sp"
-            android:layout_marginBottom="2dp" />
+            <ImageView
+                android:id="@+id/imgMission"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholder_image" />
 
-        <TextView
-            android:id="@+id/tvTrick"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Truco: "
-            android:textSize="16sp"
-            android:layout_marginBottom="2dp" />
-
-        <TextView
-            android:id="@+id/tvDifficulty"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Dificultad: "
-            android:textSize="16sp"
-            android:layout_marginBottom="2dp" />
-
-        <TextView
-            android:id="@+id/tvReward"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Recompensa: "
-            android:textSize="16sp"
-            android:layout_marginBottom="2dp" />
-
-        <TextView
-            android:id="@+id/tvGlobalAcceptances"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Aceptaciones globales: 0/15"
-            android:textSize="14sp"
-            android:textStyle="italic"
-            android:layout_marginBottom="8dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/gradient_bottom" />
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="end"> <Button
-            android:id="@+id/btnAcceptMission"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Aceptar Misión"
-            android:layout_marginEnd="8dp"
-            android:visibility="gone" /> <Button
-            android:id="@+id/btnCancelMission"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cancelar Misión"
-            android:layout_marginEnd="8dp"
-            android:visibility="gone" /> <Button
-            android:id="@+id/btnSubmitEvidence"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Enviar Evidencia"
-            android:visibility="gone" /> </LinearLayout>
+            android:orientation="vertical"
+            android:padding="16dp">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/tvMissionName"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="NOMBRE DE LA MISIÓN"
+                    android:textColor="@color/text_primary"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-condensed" />
+
+                <TextView
+                    android:id="@+id/tvDifficultyBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MEDIA"
+                    android:textColor="@color/black"
+                    android:background="@drawable/badge_difficulty_media"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-condensed" />
+            </LinearLayout>
+
+            <!-- Text elements need a quick custom view or spannable in Java, but we can do it via a horizontal layout or simple string format. To keep it simple, we just use standard TextViews with muted/white colors set via code, or split them. Since original had single TextViews, we preserve them and style them generally. -->
+
+            <TextView
+                android:id="@+id/tvLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ubicación: Santiago"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/tvTrick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Truco: Grind en rampa"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/tvDifficulty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dificultad: Media"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:layout_marginBottom="4dp"
+                android:visibility="gone" /> <!-- Hidden since we have the badge -->
+
+            <TextView
+                android:id="@+id/tvReward"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Recompensa: Polera PissDrunxKing"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/tvGlobalAcceptances"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Aceptaciones globales: 1"
+                android:textColor="@color/text_muted"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:gravity="center">
+                
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAcceptMission"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ACEPTAR MISIÓN"
+                    android:textColor="@color/black"
+                    app:backgroundTint="@color/primary_accent"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-condensed"
+                    app:cornerRadius="4dp"
+                    android:padding="12dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:baselineAligned="false">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCancelMission"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="CANCELAR MISIÓN"
+                    android:textColor="@color/danger"
+                    app:strokeColor="@color/danger"
+                    app:strokeWidth="2dp"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-condensed"
+                    app:cornerRadius="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:padding="12dp"
+                    android:visibility="gone" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSubmitEvidence"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="ENVIAR EVIDENCIA"
+                    android:textColor="@color/white"
+                    app:backgroundTint="@color/secondary_accent"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-condensed"
+                    app:cornerRadius="4dp"
+                    android:padding="12dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

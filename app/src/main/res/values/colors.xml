@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <!-- SK8KING Colors -->
+    <color name="bg_color">#0A0A0A</color>
+    <color name="surface_color">#111111</color>
+    <color name="primary_accent">#F5FF00</color>
+    <color name="secondary_accent">#FF0055</color>
+    <color name="tertiary_accent">#00FF88</color>
+    <color name="brand_purple">#6600FF</color>
+    
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_muted">#888888</color>
+    
+    <color name="danger">#FF3333</color>
+    <color name="border_subtle">#333333</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
